@@ -46,6 +46,12 @@ public:
 	unsigned int m_hBool21;
 	unsigned int m_hBool22;
 	unsigned int m_hBool23;
+	unsigned int m_hBool24;
+	unsigned int m_hBool25;
+	unsigned int m_hBool26;
+	unsigned int m_hBool27;
+	unsigned int m_hBool28;
+	unsigned int m_hBool29;
 
 	unsigned int m_hByte;
 	unsigned int m_hByte1;
@@ -54,9 +60,17 @@ public:
 	unsigned int m_hInt1;
 	unsigned int m_hInt2;
 	unsigned int m_hInt3;
+	unsigned int m_hInt4;
+	unsigned int m_hInt5;
+	unsigned int m_hInt6;
+	unsigned int m_hInt7;
 	unsigned int m_hFloat1;
 	unsigned int m_hFloat2;
 	unsigned int m_hFloat3;
+	unsigned int m_hFloat4;
+	unsigned int m_hString1;
+	unsigned int m_hString2;
+	unsigned int m_hString3;
 	unsigned int m_hArray;
 	unsigned int m_hStruct;
 signals:
@@ -66,7 +80,13 @@ signals:
 	char readByte();
 	qint16 readInt();
 	qint16 readInt2();
+	qint16 readInt5();
+	qint16 readInt6();
 	float readFloat1();
+	float readFloat4();
+	QString readString1();
+	QString readString2();
+	QString readString3();
 	QVector<int> readArray();
 	QByteArray readStruct();
 
@@ -93,16 +113,25 @@ signals:
 	void writeBool21(bool bValue);
 	void writeBool22(bool bValue);
 	void writeBool23(bool bValue);
-
+	void writeBool24(bool bValue);
+	void writeBool25(bool bValue);
+	void writeBool26(bool bValue);
+	void writeBool27(bool bValue);
+	void writeBool28(bool bValue);
+	void writeBool29(bool bValue);
 
 	void writeInt1(qint16 bInt);
-	void writeByte(char bValue);
-	void writeByte1(char bValue);
-	void writeByte2(char bValue);
+	void writeInt3(qint16 bInt);
+	void writeInt4(qint16 bInt);
+	void writeInt7(qint16 bInt);
+	void writeByte(char bValue);	
 	void writeInt(qint16 bInt);
 	void writeFloat1(float bfloat);
 	void writeFloat2(float bfloat);
 	void writeFloat3(float bfloat);
+
+	void writeString2(QString str);
+		
 	void writeArray(QVector<int> nVec);
 	void writeStruct(QByteArray str);
 
