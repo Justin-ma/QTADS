@@ -67,15 +67,14 @@ QtAdsOperate::QtAdsOperate(QObject *parent) : QObject(parent)
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat3), &m_hFloat3, strFloat3.length(), strFloat3.toLatin1().data());
 		QString  strFloat4(".LayerDistance");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat4), &m_hFloat4, strFloat4.length(), strFloat4.toLatin1().data());
-
+		QString  strFloat5(".VToWXOffset");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat5), &m_hFloat5, strFloat5.length(), strFloat5.toLatin1().data());
+		QString  strFloat6(".VToWYOffset");
 		
-		QString  strInt3(".VToWXOffset");
-		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hInt3), &m_hInt3, strInt3.length(), strInt3.toLatin1().data());
-		QString  strInt4(".VToWYOffset");
-		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hInt4), &m_hInt4, strInt4.length(), strInt4.toLatin1().data());
-		QString  strInt5(".XOffset");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat6), &m_hFloat6, strFloat6.length(), strFloat6.toLatin1().data());
+		QString  strInt5(".Data_X");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hInt5), &m_hInt5, strInt5.length(), strInt5.toLatin1().data());
-		QString  strInt6(".YOffset");
+		QString  strInt6(".Data_Y");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hInt6), &m_hInt6, strInt6.length(), strInt6.toLatin1().data());
 		QString  strInt7(".LayerCount");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hInt7), &m_hInt7, strInt7.length(), strInt7.toLatin1().data());
@@ -101,7 +100,7 @@ QtAdsOperate::QtAdsOperate(QObject *parent) : QObject(parent)
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool29), &m_hBool29, strBool29.length(), strBool29.toLatin1().data());
 
 		
-		QString  strString1("Main.ActModeString");
+		QString  strString1(".CNCSystem.Channel[1].ActModeString");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hString1), &m_hString1, strString1.length(), strString1.toLatin1().data());
 		QString  strString2(".sProgram");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hString2), &m_hString2, strString2.length(), strString2.toLatin1().data());
@@ -121,6 +120,16 @@ QtAdsOperate::QtAdsOperate(QObject *parent) : QObject(parent)
 }
 
 
+bool QtAdsOperate::readBool(unsigned int m_hBool)
+{
+	bool bValue;
+	AdsSyncReadReq(&m_addr,
+		ADSIGRP_SYM_VALBYHND,	//IndexGroup
+		m_hBool,		//IndexOffset
+		sizeof(bValue), //DataLength
+		&bValue);
+	return bValue;
+}
 bool QtAdsOperate::readBool()
 {
 	bool bValue;
@@ -143,7 +152,7 @@ char QtAdsOperate::readByte()
 }
 
 
-qint16 QtAdsOperate::readInt()
+qint16 QtAdsOperate::readInt(unsigned int m_hInt)
 {
 	short cValue;
 	AdsSyncReadReq(&m_addr,
@@ -154,92 +163,25 @@ qint16 QtAdsOperate::readInt()
 	return cValue;
 }
 
-qint16 QtAdsOperate::readInt2()
+float QtAdsOperate::readFloat(unsigned int m_hFloat)
 {
 	short cValue;
 	AdsSyncReadReq(&m_addr,
 		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hInt2,		//IndexOffset
+		m_hFloat,		//IndexOffset
 		sizeof(cValue), //DataLength
 		&cValue);
 	return cValue;
 }
 
-qint16 QtAdsOperate::readInt5()
-{
-	short cValue;
-	AdsSyncReadReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hInt5,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-	return cValue;
-}
-qint16 QtAdsOperate::readInt6()
-{
-	short cValue;
-	AdsSyncReadReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hInt6,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-	return cValue;
-}
 
-float QtAdsOperate::readFloat1()
-{
-	short cValue;
-	AdsSyncReadReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hFloat1,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-	return cValue;
-}
-
-float QtAdsOperate::readFloat4()
-{
-	short cValue;
-	AdsSyncReadReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hFloat4,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-	return cValue;
-}
-
-QString QtAdsOperate::readString1()
-{
-	char szVar[5];
-	memset(&szVar, 0, 5);
-	AdsSyncReadReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hString1,		//IndexOffset
-		sizeof(szVar), //DataLength
-		&szVar);
-
-	return QString(szVar);
-}
-
-QString QtAdsOperate::readString2()
-{	
-	char szVar[11];
-	memset(&szVar, 0, 11);
-	AdsSyncReadReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hString2,		//IndexOffset
-		sizeof(szVar), //DataLength
-		&szVar);
-
-	return QString(szVar);
-}
-QString QtAdsOperate::readString3()
+QString QtAdsOperate::readString(unsigned int m_hString)
 {
 	char szVar[11];
 	memset(&szVar, 0, 11);
 	AdsSyncReadReq(&m_addr,
 		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hString3,		//IndexOffset
+		m_hString,		//IndexOffset
 		sizeof(szVar), //DataLength
 		&szVar);
 
@@ -278,16 +220,8 @@ QByteArray QtAdsOperate::readStruct()
 
 }
 
-void QtAdsOperate::writeByte(char cValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hByte,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-}
 
-void QtAdsOperate::writeInt(qint16 cValue)
+void QtAdsOperate::writeInt(unsigned int m_hInt,qint16 cValue)
 {
 	AdsSyncWriteReq(&m_addr,
 		ADSIGRP_SYM_VALBYHND,	//IndexGroup
@@ -296,68 +230,20 @@ void QtAdsOperate::writeInt(qint16 cValue)
 		&cValue);
 }
 
-void QtAdsOperate::writeInt1(qint16 cValue)
+void QtAdsOperate::writeFloat(unsigned int m_hFloat, float bfloat)
 {
 	AdsSyncWriteReq(&m_addr,
 		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hInt1,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-}
-void QtAdsOperate::writeInt3(qint16 cValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hInt3,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-}
-void QtAdsOperate::writeInt4(qint16 cValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hInt4,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-}
-void QtAdsOperate::writeInt7(qint16 cValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hInt7,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-}
-void QtAdsOperate::writeFloat1(float cValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hFloat1,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-}
-void QtAdsOperate::writeFloat2(float cValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hFloat2,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
-}
-void QtAdsOperate::writeFloat3(float cValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hFloat3,		//IndexOffset
-		sizeof(cValue), //DataLength
-		&cValue);
+		m_hFloat,		//IndexOffset
+		sizeof(bfloat), //DataLength
+		&bfloat);
 }
 
-void QtAdsOperate::writeString2(QString str)
+void QtAdsOperate::writeString(unsigned int m_hString, QString str)
 {
-		AdsSyncWriteReq(&m_addr,
+	AdsSyncWriteReq(&m_addr,
 		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hString2,		//IndexOffset
+		m_hString,		//IndexOffset
 		str.length(), //DataLength			
 		str.toLatin1().data());
 }
@@ -391,238 +277,11 @@ void QtAdsOperate::writeStruct(QByteArray str)
 	}
 }
 
-void QtAdsOperate::writeBool1(bool bValue)
+void QtAdsOperate::writeBool(unsigned int m_hBool, bool bValue)
 {
 	AdsSyncWriteReq(&m_addr,
 		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool1,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool2(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool2,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-
-void QtAdsOperate::writeBool3(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool3,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool4(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool4,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool5(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool5,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool6(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool6,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool7(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool7,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool8(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool8,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-
-void QtAdsOperate::writeBool9(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool9,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool10(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool10,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-
-void QtAdsOperate::writeBool11(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool11,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool12(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool12,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool13(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool13,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool14(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool14,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool15(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool15,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool16(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool16,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool17(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool17,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool18(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool18,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool19(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool19,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool20(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool20,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool21(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool21,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool22(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool22,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool23(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool23,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool24(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool24,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool25(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool25,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool26(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool26,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool27(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool27,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool28(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool28,		//IndexOffset
-		sizeof(bValue), //DataLength
-		&bValue);
-}
-void QtAdsOperate::writeBool29(bool bValue)
-{
-	AdsSyncWriteReq(&m_addr,
-		ADSIGRP_SYM_VALBYHND,	//IndexGroup
-		m_hBool29,		//IndexOffset
+		m_hBool,		//IndexOffset
 		sizeof(bValue), //DataLength
 		&bValue);
 }
