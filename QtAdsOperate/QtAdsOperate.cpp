@@ -69,13 +69,12 @@ QtAdsOperate::QtAdsOperate(QObject *parent) : QObject(parent)
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat4), &m_hFloat4, strFloat4.length(), strFloat4.toLatin1().data());
 		QString  strFloat5(".VToWXOffset");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat5), &m_hFloat5, strFloat5.length(), strFloat5.toLatin1().data());
-		QString  strFloat6(".VToWYOffset");
-		
+		QString  strFloat6(".VToWYOffset");		
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat6), &m_hFloat6, strFloat6.length(), strFloat6.toLatin1().data());
 		QString  strInt5(".Data_X");
-		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hInt5), &m_hInt5, strInt5.length(), strInt5.toLatin1().data());
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat7), &m_hFloat7, strInt5.length(), strInt5.toLatin1().data());
 		QString  strInt6(".Data_Y");
-		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hInt6), &m_hInt6, strInt6.length(), strInt6.toLatin1().data());
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hFloat8), &m_hFloat8, strInt6.length(), strInt6.toLatin1().data());
 		QString  strInt7(".LayerCount");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hInt7), &m_hInt7, strInt7.length(), strInt7.toLatin1().data());
 
@@ -98,7 +97,30 @@ QtAdsOperate::QtAdsOperate(QObject *parent) : QObject(parent)
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool28), &m_hBool28, strBool28.length(), strBool28.toLatin1().data());
 		QString  strBool29(".aLevel");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool29), &m_hBool29, strBool29.length(), strBool29.toLatin1().data());
+		QString  strBool30(".WeldMode");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool30), &m_hBool30, strBool30.length(), strBool30.toLatin1().data());
+		QString  strBool31(".aVertical");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool31), &m_hBool31, strBool31.length(), strBool31.toLatin1().data());
+		QString  strBool32(".LC");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool32), &m_hBool32, strBool32.length(), strBool32.toLatin1().data());
+		QString  strBool33(".VC1");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool33), &m_hBool33, strBool33.length(), strBool33.toLatin1().data());
+		QString  strBool34(".VC2");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool34), &m_hBool34, strBool34.length(), strBool34.toLatin1().data());
+		QString  strBool35(".VC3");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool35), &m_hBool35, strBool35.length(), strBool35.toLatin1().data());
+		QString  strBool36(".VC4");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool36), &m_hBool36, strBool36.length(), strBool36.toLatin1().data());
+		QString  strBool37(".VC5");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool37), &m_hBool37, strBool37.length(), strBool37.toLatin1().data());
+		QString  strBool38(".VC6");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool38), &m_hBool38, strBool38.length(), strBool38.toLatin1().data());
+		QString  strBool39(".GD_VisuAxisNumber1");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool39), &m_hBool39, strBool39.length(), strBool39.toLatin1().data());
+		QString  strBool40(".GD_VisuAxisNumber2");
+		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hBool40), &m_hBool40, strBool40.length(), strBool40.toLatin1().data());
 
+		
 		
 		QString  strString1(".CNCSystem.Channel[1].ActModeString");
 		lErr = AdsSyncReadWriteReq(&m_addr, ADSIGRP_SYM_HNDBYNAME, 0x0, sizeof(m_hString1), &m_hString1, strString1.length(), strString1.toLatin1().data());

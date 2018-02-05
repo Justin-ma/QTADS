@@ -52,6 +52,17 @@ public:
 	unsigned int m_hBool27;
 	unsigned int m_hBool28;
 	unsigned int m_hBool29;
+	unsigned int m_hBool30;
+	unsigned int m_hBool31;
+	unsigned int m_hBool32;
+	unsigned int m_hBool33;
+	unsigned int m_hBool34;
+	unsigned int m_hBool35;
+	unsigned int m_hBool36;
+	unsigned int m_hBool37;
+	unsigned int m_hBool38;
+	unsigned int m_hBool39;
+	unsigned int m_hBool40;
 
 	unsigned int m_hByte;
 	unsigned int m_hByte1;
@@ -59,17 +70,16 @@ public:
 	unsigned int m_hInt;
 	unsigned int m_hInt1;
 	unsigned int m_hInt2;
-	//unsigned int m_hInt3;
-	//unsigned int m_hInt4;
-	unsigned int m_hInt5;
-	unsigned int m_hInt6;
 	unsigned int m_hInt7;
+
 	unsigned int m_hFloat1;
 	unsigned int m_hFloat2;
 	unsigned int m_hFloat3;
 	unsigned int m_hFloat4;
 	unsigned int m_hFloat5;
 	unsigned int m_hFloat6;
+	unsigned int m_hFloat7;
+	unsigned int m_hFloat8;
 	unsigned int m_hString1;
 	unsigned int m_hString2;
 	unsigned int m_hString3;
